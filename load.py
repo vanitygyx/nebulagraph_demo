@@ -5,7 +5,7 @@ from nebula3.common import *
 import logging
 import time
 from utils import get_tag_relation_data,exeBatch,rollback,get_vertex_data,get_edge_data,gen_edge_Batch,gen_vertex_Batch
-from new import create_DB_space,create_TAG_RELATION
+from new import create_DB_space,create_TAG_RELATION,Delete_Space
 
 
 # Main entry

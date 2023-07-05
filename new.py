@@ -17,3 +17,6 @@ def create_TAG_RELATION(client,span,relation):
     #create relation
     for rel in relation:
         client.execute("CREATE EDGE IF NOT EXISTS `%s`(rel_type int DEFAULT 0);"%(rel[1]))
+
+def Delete_Space(client,spacename):
+    client.execute("DROP SPACE IF EXISTS %s;"%(spacename))
