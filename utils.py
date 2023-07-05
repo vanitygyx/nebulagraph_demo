@@ -1,14 +1,10 @@
 import sqlite3
 import logging
 
-# Query template for todo queries
-insertVertexTemplate = "INSERT VERTEX %s (name) VALUES \"%s\":(\"%s\")"
-# Query template for undo queries that delete the inserted vertices
-rollbackTemplate = "DELETE VERTEX \"%s\""
 # Retry each query execution for the following times
 retryTimes = 10
 
-def get_tag_relation_data(filename):
+def get_tag_relation_data(filename,project_id):
     relationtype_all = []
     spantype_all = []
     examples_all = []
@@ -16,9 +12,9 @@ def get_tag_relation_data(filename):
     cur = con.cursor() 
     try: 
     # 获取所有数据 
-        cur.execute("select * from label_types_relationtype")
+        cur.execute("select * from label_types_relationtype where project_id = %d"%(project_id))
         relationtype_all = cur.fetchall() 
-        cur.execute("select * from label_types_spantype")
+        cur.execute("select * from label_types_spantype where project_id = %d"%(project_id))
         spantype_all = cur.fetchall()
 
     # print(person_all) 
@@ -41,9 +37,29 @@ def get_vertex_data(filename,project_id=1,num=1):
       cur.execute(" select start_offset,end_offset,l2.text,l3.text from \
                   (select * from labels_span where example_id\
                   in (select  example_id from examples_examplestate where examples_examplestate.example_id \
-                  in (select id from examples_example where project_id = %s) ) )  l1 \
+                  in (select id from examples_example where project_id = %d) ) )  l1 \
                   left join label_types_spantype l2 on l1.label_id =  l2.id \
                   left join examples_example l3 on l1.example_id = l3.id\
+                  limit %d,%d;"%(project_id,(num-1)*500,num*500))
+      examples_all = cur.fetchall()
+  except Exception as e: 
+    print(e) 
+    print('查询失败')   
+  return examples_all
+
+def get_edge_data(filename,project_id=1,num=1):
+  con = sqlite3.connect(filename) 
+  cur = con.cursor() 
+  examples_all = []
+  try:
+      cur.execute(" select l2.start_offset,l2.end_offset,l3.start_offset,l3.end_offset,l4.text,l5.text from \
+                  (select * from labels_relation where example_id\
+                  in  (select  example_id from examples_examplestate where examples_examplestate.example_id\
+                  in  (select id from examples_example where project_id =%d))) l1\
+                  left join labels_span l2 on l1.from_id_id = l2.id\
+                  left join labels_span l3 on l1.to_id_id = l3.id\
+                  left join examples_example l4 on l1.example_id = l4.id\
+                  left join label_types_relationtype l5 on l1.type_id =  l5.id\
                   limit %d,%d;"%(project_id,(num-1)*500,num*500))
       examples_all = cur.fetchall()
   except Exception as e: 
@@ -63,13 +79,18 @@ def exeBatch(space, batch, session):
       counter = counter + 1
   return counter
 
-def genBatch(data):
+def gen_vertex_Batch(data):
+  # Query template for todo queries
+  insertVertexTemplate = "INSERT VERTEX `%s` (name) VALUES \"%s\":(\"%s\")"
+  # Query template for undo queries that delete the inserted vertices
+  rollbackTemplate = "DELETE VERTEX \"%s\""
   todo = []
   undo = []
   for table in data:
     start,end = table[0],table[1]
     value = table[3][start:end]
-    print(value)
+    #print(value)
+    value =value.replace('"',"\\\"")
     insert = insertVertexTemplate % (table[2],value,value)
     rollback = rollbackTemplate % (value)
     todo.append(insert)
@@ -77,6 +98,27 @@ def genBatch(data):
   # Ingest some errors for testing:
   # undo[0] = insertVertexTemplate
   # todo[4] = insertVertexTemplate
+  return todo, undo
+
+def gen_edge_Batch(data):
+  # Query template for todo queries
+  insertVertexTemplate = "INSERT EDGE `%s` () VALUES \"%s\"->\"%s\":()"
+  # Query template for undo queries that delete the inserted vertices
+  rollbackTemplate = "DELETE EDGE `%s` \"%s\"->\"%s\""
+  todo = []
+  undo = []
+  for table in data:
+    start1,end1 = table[0],table[1]
+    start2,end2 = table[2],table[3]
+    src = table[4][start1:end1]
+    dst = table[4][start2:end2]
+    src =src.replace('"',"\\\"")
+    dst =dst.replace('"',"\\\"")
+    #print(src,dst)
+    insert = insertVertexTemplate % (table[5],src,dst)
+    rollback = rollbackTemplate % (table[5],src,dst)
+    todo.append(insert)
+    undo.append(rollback)
   return todo, undo
 
 # Rollback the batch execution by executing the undo counterparts of all successfully executed queries.
