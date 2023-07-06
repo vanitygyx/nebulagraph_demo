@@ -8,7 +8,7 @@ from nebula3.common import *
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='scan_vertext_relation.py')
     parser.add_argument('--spacename',type=str,default="basketballplayer",help='select nebula sapce')
-    parser.add_argument('--scan_id',type=str,default="",help='the id for scaning vertexs and edges')
+    parser.add_argument('--scan_id',type=str,default="player100",help='the id for scaning vertexs and edges')
 
     opt = parser.parse_args()
     spacename = opt.spacename
