@@ -10,7 +10,7 @@ from new import create_DB_space,create_TAG_RELATION,Delete_Space
 
 # Main entry
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog='create_demo.py')
+    parser = argparse.ArgumentParser(prog='load.py')
     parser.add_argument('--file',default='db.sqlite3',help='load DB file')
     parser.add_argument('--spacename',type=str,default="test",help='select nebula sapce')
     parser.add_argument('--project_id',default=6,help='the id for create the project examples')
