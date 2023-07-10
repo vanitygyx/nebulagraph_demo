@@ -1,12 +1,12 @@
 import argparse
 from nebula3.gclient.net import ConnectionPool
 from nebula3.Config import Config
-from nebula3.common import *
+
 import logging
 import time
 from utils import get_tag_relation_data,exeBatch,rollback,get_vertex_data,get_edge_data,gen_edge_Batch,gen_vertex_Batch
 from new import create_DB_space,create_TAG_RELATION,Delete_Space
-
+import config as cf 
 
 # Main entry
 if __name__ == '__main__':
@@ -17,23 +17,15 @@ if __name__ == '__main__':
     opt = parser.parse_args()
     relation,span = get_tag_relation_data(opt.file,opt.project_id)
     spacename = opt.spacename
-    """
-    config setting
-    """
-    # IP and port of the nebula-graphd service
-    addr = "10.192.71.57"
-    port = 9669
-    # The default login
-    usr = "root"
-    pwd = "nebula"
+
     config = Config()
     config.max_connection_pool_size = 2
     # init connection pool
     connection_pool = ConnectionPool()
     
     # get session from the pool
-    status = connection_pool.init([(addr, port)], config)
-    client = connection_pool.get_session(usr, pwd)
+    status = connection_pool.init([(cf.addr, cf.port)], config)
+    client = connection_pool.get_session(cf.usr, cf.pwd)
     assert client is not None
     """
     create mode 
@@ -56,7 +48,7 @@ if __name__ == '__main__':
         else:
             i+=1
         if status:
-            with connection_pool.session_context(usr, pwd) as session:
+            with connection_pool.session_context(cf.usr, cf.pwd) as session:
                 progress_vertex = exeBatch(spacename, todo_vertex, session)
                 if (progress_vertex != len(todo_vertex)):
                     if rollback(undo_vertex, progress_vertex, session) == False:
