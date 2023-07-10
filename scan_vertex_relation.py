@@ -7,8 +7,8 @@ from nebula3.common import *
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='scan_vertext_relation.py')
-    parser.add_argument('--spacename',type=str,default="basketballplayer",help='select nebula sapce')
-    parser.add_argument('--scan_id',type=str,default="player100",help='the id for scaning vertexs and edges')
+    parser.add_argument('--spacename',type=str,default="test",help='select nebula sapce')
+    parser.add_argument('--scan_id',type=str,default="ion\" conte",help='the id for scaning vertexs and edges')
 
     opt = parser.parse_args()
     spacename = opt.spacename
@@ -16,7 +16,7 @@ if __name__ == '__main__':
     config setting
     """
     # IP and port of the nebula-graphd service
-    addr = "10.192.71.57"
+    addr = "192.168.1.9"
     port = 9669
     # The default login
     usr = "root"
