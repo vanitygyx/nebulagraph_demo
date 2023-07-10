@@ -12,11 +12,10 @@ def create_TAG_RELATION(client,span,relation):
     for sp in span:
         #print(sp)
         if sp[10]==0:
-            print("CREATE TAG IF NOT EXISTS `%s`(name string);"%(sp[1]))
-            client.execute("CREATE TAG IF NOT EXISTS `%s`(name string);"%(sp[1]))
+            client.execute("CREATE TAG IF NOT EXISTS `%s`(name string,ground_color string DEFAULT %s,text_color string DEFAULT %s);"%(sp[1],sp[4],sp[5]))
     #create relation
     for rel in relation:
-        client.execute("CREATE EDGE IF NOT EXISTS `%s`(rel_type int DEFAULT 0);"%(rel[1]))
+        client.execute("CREATE EDGE IF NOT EXISTS `%s`(rel_type int DEFAULT 0,name string DEFAULT %s,ground_color string DEFAULT %s,text_color string DEFAULT %s);"%(rel[1],rel[1],rel[4],rel[5]))
 
 def Delete_Space(client,spacename):
     client.execute("DROP SPACE IF EXISTS %s;"%(spacename))

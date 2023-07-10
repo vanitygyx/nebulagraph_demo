@@ -115,5 +115,3 @@ ipconfig查看ip地址并填入，用户名root，密码root
 5.连接成功
 
 ![f34d8e5264004eafe8931ec6c15eeea.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2c13da44-ac9c-48d2-b80a-adc27df46781/f34d8e5264004eafe8931ec6c15eeea.png)
-
-### SQL查询语句

@@ -34,7 +34,7 @@ def get_vertex_data(filename,project_id=1,num=1):
   cur = con.cursor() 
   examples_all = []
   try:
-      cur.execute(" select start_offset,end_offset,l2.text,l3.text from \
+      cur.execute(" select start_offset,end_offset,l2.text,l3.text,l1.id from \
                   (select * from labels_span where example_id\
                   in (select  example_id from examples_examplestate where examples_examplestate.example_id \
                   in (select id from examples_example where project_id = %d) ) )  l1 \
@@ -52,14 +52,11 @@ def get_edge_data(filename,project_id=1,num=1):
   cur = con.cursor() 
   examples_all = []
   try:
-      cur.execute(" select l2.start_offset,l2.end_offset,l3.start_offset,l3.end_offset,l4.text,l5.text from \
+      cur.execute("select from_id_id,to_id_id,text from \
                   (select * from labels_relation where example_id\
                   in  (select  example_id from examples_examplestate where examples_examplestate.example_id\
                   in  (select id from examples_example where project_id =%d))) l1\
-                  left join labels_span l2 on l1.from_id_id = l2.id\
-                  left join labels_span l3 on l1.to_id_id = l3.id\
-                  left join examples_example l4 on l1.example_id = l4.id\
-                  left join label_types_relationtype l5 on l1.type_id =  l5.id\
+                  left join label_types_relationtype l2 on l1.type_id =  l2.id\
                   limit %d,%d;"%(project_id,(num-1)*500,num*500))
       examples_all = cur.fetchall()
   except Exception as e: 
@@ -91,8 +88,8 @@ def gen_vertex_Batch(data):
     value = table[3][start:end]
     #print(value)
     value =value.replace('"',"\\\"")
-    insert = insertVertexTemplate % (table[2],value,value)
-    rollback = rollbackTemplate % (value)
+    insert = insertVertexTemplate % (table[2],table[4],value)
+    rollback = rollbackTemplate % (table[4])
     todo.append(insert)
     undo.append(rollback)
   # Ingest some errors for testing:
@@ -108,15 +105,9 @@ def gen_edge_Batch(data):
   todo = []
   undo = []
   for table in data:
-    start1,end1 = table[0],table[1]
-    start2,end2 = table[2],table[3]
-    src = table[4][start1:end1]
-    dst = table[4][start2:end2]
-    src =src.replace('"',"\\\"")
-    dst =dst.replace('"',"\\\"")
     #print(src,dst)
-    insert = insertVertexTemplate % (table[5],src,dst)
-    rollback = rollbackTemplate % (table[5],src,dst)
+    insert = insertVertexTemplate % (table[2],table[0],table[1])
+    rollback = rollbackTemplate % (table[2],table[0],table[1])
     todo.append(insert)
     undo.append(rollback)
   return todo, undo
