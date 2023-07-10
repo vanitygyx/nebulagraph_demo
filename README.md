@@ -3,6 +3,15 @@
 
 # Nebula数据库部署
 
+### 文件内容
+
+```
+config.py 保存了数据库所需的静态配置
+load.py 主函数，创建库以及导入数据
+new.py 保存创建TAG、EDGE的函数
+utils.py 保存插入点、边的函数
+```
+
 ### 前提
 
 docker桌面版、git
