@@ -3,10 +3,10 @@ from nebula3.gclient.net import ConnectionPool
 from nebula3.Config import Config
 import config as cf
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='scan_vertext_relation.py')
     parser.add_argument('--spacename',type=str,default="test",help='select nebula sapce')
-    parser.add_argument('--scan_id',type=str,default="8",help='the id for scaning vertexs and edges')
 
     opt = parser.parse_args()
     spacename = opt.spacename
@@ -22,6 +22,7 @@ if __name__ == '__main__':
     assert client is not None
 
     client.execute("USE %s"%(opt.spacename))
-    result = client.execute("MATCH (m)-[a]-(n) WHERE id(m)==\"%s\" OPTIONAL MATCH (n)-[b]-(l) RETURN m,a,n,b,l;"%(opt.scan_id))
+    
+    result = client.execute("MATCH (v) RETURN v LIMIT 500")
     print(result)
     connection_pool.close()

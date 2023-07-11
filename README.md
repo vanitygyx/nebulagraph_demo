@@ -10,6 +10,8 @@ config.py 保存了数据库所需的静态配置
 load.py 主函数，创建库以及导入数据
 new.py 保存创建TAG、EDGE的函数
 utils.py 保存插入点、边的函数
+scan_vertex_relation.py 查询某个点两层关系与节点
+scan_all_vertex.py 查询图空间中所有点
 ```
 
 ### 前提
