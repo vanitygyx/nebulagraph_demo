@@ -2,8 +2,8 @@
 config setting
 """
 # IP and port of the nebula-graphd service
-addr = "10.192.71.57"
-port = 9669
+addr = "123.57.249.69"
+port = 9668
 # The default login
 usr = "root"
 pwd = "nebula"

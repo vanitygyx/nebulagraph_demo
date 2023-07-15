@@ -1,0 +1,219 @@
+{
+    "nodes": [
+        {
+            "id": "0",
+            "name": "0",
+            "value": "Max"
+            "properties": {
+                "属性1": "My属性",
+                "property-2": "test2",
+                "年龄": "26",
+            },
+            "category": 0
+        },
+        {
+            "id": "1",
+            "name": "1",
+            "value": "Hams"
+            "properties": {
+                "属性1": "Na属性",
+                "property-2": "test2-n",
+                "年龄": "38", 
+            },
+            "category": 0
+        },
+        {
+            "id": "2",
+            "name": "2",
+            "value": "Alonso"
+            "properties": {
+                "属性1": "Alo属性",
+                "property-2": "test2-a",
+                "年龄": "46",         
+            },
+            "category": 0
+        },
+        {
+            "id": "3",
+            "name": "3",
+            "value": "George"
+            "properties": {
+                "属性1": "G属性",
+                "property-2": "test2-g",
+                "年龄": "25",         
+            },
+            "category": 0
+        },
+        {
+            "id": "4",
+            "name": "4",
+            "value": "Perez"
+            "properties": {
+                "属性1": "P属性",
+                "property-2": "test2-p",
+                "年龄": "34",         
+            },
+            "category": 0
+        },
+        {
+            "id": "5",
+            "name": "5",
+            "value": "RedBull"
+            "properties": {
+                "中文名": "红牛",
+                "排名": "1",
+            },
+            "category": 1
+        },
+        {
+            "id": "6",
+            "name": "6",
+            "value": "Mercedes"
+            "properties": {
+                "中文名": "梅赛德斯",
+                "排名": "2",
+            },
+            "category": 1
+        },
+        {
+            "id": "7",
+            "name": "7",
+            "value": "Aston Martin"
+            "properties": {
+                "中文名": "阿斯顿·马丁",
+                "排名": "2",
+            },
+            "category": 1
+        },
+        {
+            "id": "8",
+            "name": "8",
+            "value": "Crypto.com"
+            "properties": {
+            },
+            "category": 2
+        },
+        {
+            "id": "9",
+            "name": "9",
+            "value": "Aramco"
+            "properties": {
+            },
+            "category": 2
+        },
+        {
+            "id": "10",
+            "name": "10",
+            "value": "Oracle"
+            "properties": {
+            },
+            "category": 2
+        },
+        {
+            "id": "11",
+            "name": "11",
+            "value": "Pertronas"
+            "properties": {
+            },
+            "category": 2
+        }
+    ],
+    "edges": [
+        {
+            "source": "1",
+            "target": "3",
+            "text": "队友"
+        },
+        {
+            "source": "1",
+            "target": "0"
+            "text": "同事"
+        },
+        {
+            "source": "2",
+            "target": "0"
+            "text": "同事"
+        },
+        {
+            "source": "3",
+            "target": "0"
+            "text": "同事"
+        },
+        {
+            "source": "4",
+            "target": "0"
+            "text": "同事"
+        },
+        {
+            "source": "4",
+            "target": "0"
+            "text": "队友"
+        },
+        {
+            "source": "0",
+            "target": "5"
+            "text": "效力"
+        },
+        {
+            "source": "4",
+            "target": "5"
+            "text": "效力"
+        },
+        {
+            "source": "1",
+            "target": "6"
+            "text": "效力"
+        },
+        {
+            "source": "3",
+            "target": "6"
+            "text": "效力"
+        },
+        {
+            "source": "2",
+            "target": "7"
+            "text": "效力"
+        },
+        {
+            "source": "8",
+            "target": "7"
+            "text": "赞助"
+        },
+        {
+            "source": "9",
+            "target": "7"
+            "text": "赞助"
+        },
+        {
+            "source": "10",
+            "target": "5"
+            "text": "赞助"
+        },
+        {
+            "source": "11",
+            "target": "6"
+            "text": "赞助"
+        },
+
+    ],
+    "categories": [
+        {
+            "name": "车手",
+            "itemStyle": {
+                color: "#5470c6"
+            }
+        },
+        {
+            "name": "车队",
+            "itemStyle": {
+                color: "#91cc75"
+            }
+        },
+        {
+            "name": "赞助商",
+            "itemStyle": {
+                color: "#fac858"
+            }
+        }
+    ]
+}
