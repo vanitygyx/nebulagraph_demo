@@ -13,7 +13,8 @@ def category_insert(tag,property):
     category_record.append(tag)
     category_result = {}
     category_result["name"] = tag
-    category_result["itemStyle"] = {"ground_color":property["ground_color"],"text_color":property["text_color"]}
+    category_result["itemStyle"] = {"ground_color":property["ground_color"]}
+    category_result["label"] = {"color":property["text_color"]}
     return category_result
 
 def nodes_insert(id,property,num):
@@ -80,6 +81,7 @@ if __name__ == '__main__':
     record_txt["nodes"] = nodes
     record_txt["edges"] = edges
     record_txt["categories"] = categories
+
 
     print(record_txt)
 

@@ -4,6 +4,9 @@ Template setting
 #查询实体相邻节点关系
 entity_related_template = "MATCH (m)-[a]-(n) WHERE id(m)==\"%s\" OPTIONAL MATCH (n)-[b]-(l) RETURN id(m),tags(m),properties(m),src(a), dst(a), type(a),id(n),tags(n),properties(n),src(b), dst(b), type(b),id(l),tags(l),properties(l);"
 
+#查询所有实体语句
+all_entities_template = "MATCH (v) RETURN id(v),tags(v),properties(v) SKIP %s LIMIT %s;"
+
 #图空间语句
 drop_space_template = "DROP SPACE IF EXISTS %s;"
 create_space_template = "CREATE SPACE IF NOT EXISTS %s(vid_type=FIXED_STRING(256));"
@@ -13,9 +16,6 @@ load_TAG_template = "select * from label_types_relationtype where project_id = %
 load_EDGE_template = "select * from label_types_spantype where project_id = %d"
 create_TAG_template = "CREATE TAG IF NOT EXISTS `%s`(name string,ground_color string DEFAULT \"%s\",text_color string DEFAULT \"%s\");"
 create_EDGE_template = "CREATE EDGE IF NOT EXISTS `%s`(rel_type int DEFAULT 0,name string DEFAULT \"%s\",ground_color string DEFAULT \"%s\",text_color string DEFAULT \"%s\");"
-
-#查询所有实体语句
-all_entities_template = "MATCH (v) RETURN v LIMIT %s,%s"
 
 #查询实体点、边
 vertex_data_template = " select start_offset,end_offset,l2.text,l3.text,l1.id from \

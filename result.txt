@@ -105,36 +105,46 @@
         {
             "name": "人物",
             "itemStyle": {
-                "ground_color": "#73D8FF",
-                "text_color": "#ffffff"
+                "ground_color": "#73D8FF"
+            },
+            "label": {
+                "color": "#ffffff"
             }
         },
         {
             "name": "赛事",
             "itemStyle": {
-                "ground_color": "#68BC00",
-                "text_color": "#ffffff"
+                "ground_color": "#68BC00"
+            },
+            "label": {
+                "color": "#ffffff"
             }
         },
         {
             "name": "国家",
             "itemStyle": {
-                "ground_color": "#9F0500",
-                "text_color": "#ffffff"
+                "ground_color": "#9F0500"
+            },
+            "label": {
+                "color": "#ffffff"
             }
         },
         {
             "name": "车队",
             "itemStyle": {
-                "ground_color": "#F44E3B",
-                "text_color": "#ffffff"
+                "ground_color": "#F44E3B"
+            },
+            "label": {
+                "color": "#ffffff"
             }
         },
         {
             "name": "赛车",
             "itemStyle": {
-                "ground_color": "#653294",
-                "text_color": "#ffffff"
+                "ground_color": "#653294"
+            },
+            "label": {
+                "color": "#ffffff"
             }
         }
     ]

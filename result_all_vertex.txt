@@ -1,0 +1,136 @@
+{
+    "nodes": [
+        {
+            "id": "12318",
+            "name": "12318",
+            "value": "RB19",
+            "property": {},
+            "category": 0
+        },
+        {
+            "id": "12323",
+            "name": "12323",
+            "value": "Dutch",
+            "property": {},
+            "category": 1
+        },
+        {
+            "id": "12311",
+            "name": "12311",
+            "value": "Daniel Ricciardo",
+            "property": {},
+            "category": 2
+        },
+        {
+            "id": "12312",
+            "name": "12312",
+            "value": "Nyck de Vries",
+            "property": {},
+            "category": 2
+        },
+        {
+            "id": "12315",
+            "name": "12315",
+            "value": "Silverstone",
+            "property": {},
+            "category": 3
+        },
+        {
+            "id": "12324",
+            "name": "12324",
+            "value": "Australian",
+            "property": {},
+            "category": 1
+        },
+        {
+            "id": "12322",
+            "name": "12322",
+            "value": "Monza",
+            "property": {},
+            "category": 3
+        },
+        {
+            "id": "12313",
+            "name": "12313",
+            "value": "AlphaTauri",
+            "property": {},
+            "category": 4
+        },
+        {
+            "id": "12316",
+            "name": "12316",
+            "value": "Red Bull",
+            "property": {},
+            "category": 4
+        },
+        {
+            "id": "12321",
+            "name": "12321",
+            "value": "Williams",
+            "property": {},
+            "category": 4
+        },
+        {
+            "id": "12320",
+            "name": "12320",
+            "value": "Franz Tost",
+            "property": {},
+            "category": 2
+        },
+        {
+            "id": "12314",
+            "name": "12314",
+            "value": "Hungarian Grand Prix",
+            "property": {},
+            "category": 3
+        }
+    ],
+    "edges": [],
+    "categories": [
+        {
+            "name": "赛车",
+            "itemStyle": {
+                "ground_color": "#653294"
+            },
+            "label": {
+                "color": "#ffffff"
+            }
+        },
+        {
+            "name": "国家",
+            "itemStyle": {
+                "ground_color": "#9F0500"
+            },
+            "label": {
+                "color": "#ffffff"
+            }
+        },
+        {
+            "name": "人物",
+            "itemStyle": {
+                "ground_color": "#73D8FF"
+            },
+            "label": {
+                "color": "#ffffff"
+            }
+        },
+        {
+            "name": "赛事",
+            "itemStyle": {
+                "ground_color": "#68BC00"
+            },
+            "label": {
+                "color": "#ffffff"
+            }
+        },
+        {
+            "name": "车队",
+            "itemStyle": {
+                "ground_color": "#F44E3B"
+            },
+            "label": {
+                "color": "#ffffff"
+            }
+        }
+    ]
+}
