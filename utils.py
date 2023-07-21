@@ -1,6 +1,6 @@
 import sqlite3
 import logging
-
+import template as temp
 # Retry each query execution for the following times
 retryTimes = 10
 
@@ -12,9 +12,9 @@ def get_tag_relation_data(filename,project_id):
     cur = con.cursor() 
     try: 
     # 获取所有数据 
-        cur.execute("select * from label_types_relationtype where project_id = %d"%(project_id))
+        cur.execute(temp.load_TAG_template%(project_id))
         relationtype_all = cur.fetchall() 
-        cur.execute("select * from label_types_spantype where project_id = %d"%(project_id))
+        cur.execute(temp.load_EDGE_template%(project_id))
         spantype_all = cur.fetchall()
 
     # print(person_all) 
@@ -34,13 +34,7 @@ def get_vertex_data(filename,project_id=1,num=1):
   cur = con.cursor() 
   examples_all = []
   try:
-      cur.execute(" select start_offset,end_offset,l2.text,l3.text,l1.id from \
-                  (select * from labels_span where example_id\
-                  in (select  example_id from examples_examplestate where examples_examplestate.example_id \
-                  in (select id from examples_example where project_id = %d) ) )  l1 \
-                  left join label_types_spantype l2 on l1.label_id =  l2.id \
-                  left join examples_example l3 on l1.example_id = l3.id\
-                  limit %d,%d;"%(project_id,(num-1)*500,num*500))
+      cur.execute(temp.vertex_data_template%(project_id,(num-1)*500,num*500))
       examples_all = cur.fetchall()
   except Exception as e: 
     print(e) 
@@ -52,12 +46,7 @@ def get_edge_data(filename,project_id=1,num=1):
   cur = con.cursor() 
   examples_all = []
   try:
-      cur.execute("select from_id_id,to_id_id,text from \
-                  (select * from labels_relation where example_id\
-                  in  (select  example_id from examples_examplestate where examples_examplestate.example_id\
-                  in  (select id from examples_example where project_id =%d))) l1\
-                  left join label_types_relationtype l2 on l1.type_id =  l2.id\
-                  limit %d,%d;"%(project_id,(num-1)*500,num*500))
+      cur.execute(temp.edge_data_template%(project_id,(num-1)*500,num*500))
       examples_all = cur.fetchall()
   except Exception as e: 
     print(e) 
@@ -77,10 +66,7 @@ def exeBatch(space, batch, session):
   return counter
 
 def gen_vertex_Batch(data):
-  # Query template for todo queries
-  insertVertexTemplate = "INSERT VERTEX `%s` (name) VALUES \"%s\":(\"%s\")"
-  # Query template for undo queries that delete the inserted vertices
-  rollbackTemplate = "DELETE VERTEX \"%s\""
+
   todo = []
   undo = []
   for table in data:
@@ -88,8 +74,8 @@ def gen_vertex_Batch(data):
     value = table[3][start:end]
     #print(value)
     value =value.replace('"',"\\\"")
-    insert = insertVertexTemplate % (table[2],table[4],value)
-    rollback = rollbackTemplate % (table[4])
+    insert = temp.insert_Vertex_Template % (table[2],table[4],value)
+    rollback = temp.rollback_Vertex_Template % (table[4])
     todo.append(insert)
     undo.append(rollback)
   # Ingest some errors for testing:
@@ -98,16 +84,13 @@ def gen_vertex_Batch(data):
   return todo, undo
 
 def gen_edge_Batch(data):
-  # Query template for todo queries
-  insertVertexTemplate = "INSERT EDGE `%s` () VALUES \"%s\"->\"%s\":()"
-  # Query template for undo queries that delete the inserted vertices
-  rollbackTemplate = "DELETE EDGE `%s` \"%s\"->\"%s\""
+
   todo = []
   undo = []
   for table in data:
     #print(src,dst)
-    insert = insertVertexTemplate % (table[2],table[0],table[1])
-    rollback = rollbackTemplate % (table[2],table[0],table[1])
+    insert = temp.insert_EDGE_Template % (table[2],table[0],table[1])
+    rollback = temp.rollback_EDGE_Template % (table[2],table[0],table[1])
     todo.append(insert)
     undo.append(rollback)
   return todo, undo

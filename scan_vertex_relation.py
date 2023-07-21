@@ -4,6 +4,7 @@ from nebula3.gclient.net import ConnectionPool
 from nebula3.Config import Config
 import config as cf
 import json
+import template as temp
 record_txt = {}
 nodes,edges,categories = [],[],[]
 node_record,category_record,edge_record= [],[],[]
@@ -51,7 +52,7 @@ if __name__ == '__main__':
     assert client is not None
 
     client.execute("USE %s"%(opt.spacename))
-    result = client.execute("MATCH (m)-[a]-(n) WHERE id(m)==\"%s\" OPTIONAL MATCH (n)-[b]-(l) RETURN id(m),tags(m),properties(m),src(a), dst(a), type(a),id(n),tags(n),properties(n),src(b), dst(b), type(b),id(l),tags(l),properties(l);"%(opt.scan_id))
+    result = client.execute(temp.entity_related_template%(opt.scan_id))
     property_m,property_m,property_l ={},{},{}
     for id_m,tag_m,property_m,src_a,dst_a,type_a,id_n,tag_n,property_n,src_b,dst_b,type_b,id_l,tag_l,property_l in result:
         property_n,property_m,property_l = eval(str(property_n)),eval(str(property_m)),eval(str(property_l))
