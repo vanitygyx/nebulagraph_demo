@@ -23,7 +23,7 @@ docker桌面版、git
 1. 下载nebula数据库docker版
 
 ```bash
-git clone -b release-3.4 https://github.com/vesoft-inc/nebula-docker-compose.git
+git clone -b release-3.5 https://github.com/vesoft-inc/nebula-docker-compose.git
 cd nebula-docker-compose/
 ```
 
