@@ -5,6 +5,11 @@ from nebula3.Config import Config
 import config as cf
 import json
 import template as temp
+from fa2 import ForceAtlas2
+from math import sqrt
+import networkx as nx
+import matplotlib.pyplot as plt
+
 record_txt = {}
 nodes,edges,categories = [],[],[]
 node_record,category_record,edge_record= [],[],[]
@@ -35,6 +40,28 @@ def edge_insert(src,dst,type):
     return edge_result
 
 if __name__ == '__main__':
+    forceatlas2 = ForceAtlas2(
+                        # Behavior alternatives
+                        outboundAttractionDistribution=True,  # Dissuade hubs
+                        linLogMode=False,  # NOT IMPLEMENTED
+                        adjustSizes=False,  # Prevent overlap (NOT IMPLEMENTED)
+                        edgeWeightInfluence=1.0,
+
+                        # Performance
+                        jitterTolerance=1.0,  # Tolerance
+                        barnesHutOptimize=True,
+                        barnesHutTheta=1.2,
+                        multiThreaded=False,  # NOT IMPLEMENTED
+
+                        # Tuning
+                        scalingRatio=2.0,
+                        strongGravityMode=False,
+                        gravity=1.0,
+
+                        # Log
+                        verbose=True)
+    
+    G = nx.DiGraph()
     parser = argparse.ArgumentParser(prog='scan_vertext_relation.py')
     parser.add_argument('--spacename',type=str,default="f1_news",help='select nebula sapce')
     parser.add_argument('--scan_id',type=str,default="12311",help='the id for scaning vertexs and edges')
@@ -81,10 +108,27 @@ if __name__ == '__main__':
     record_txt["nodes"] = nodes
     record_txt["edges"] = edges
     record_txt["categories"] = categories
+        # 添加节点
+    for i in record_txt["nodes"]:
+        G.add_node(i["id"], name=i["name"], property=i["property"], value=i["value"], category=i["category"])
 
+    # 添加边
+    for i in record_txt["edges"]:
+        a = i["source"]
+        b = i["target"]
+        G.add_edge(a, b)
+    # 获取节点坐标
+    positions = forceatlas2.forceatlas2_networkx_layout(G, pos=None, iterations=2000)
+    for i in record_txt["nodes"]:
+        i["x"] = positions[i["id"]][0]
+        i["y"] = positions[i["id"]][1]
+    print(positions)
 
     print(record_txt)
-
+    nx.draw_networkx_nodes(G, positions, node_size=20, node_color="blue", alpha=0.4)
+    nx.draw_networkx_edges(G, positions, edge_color="green", alpha=0.05)
+    plt.axis('off')
+    plt.show()
     with open("result.txt","w",encoding="UTF-8") as f:
         json.dump(record_txt,f,ensure_ascii=False,indent=4)
 

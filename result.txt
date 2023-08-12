@@ -5,28 +5,36 @@
             "name": "12311",
             "value": "Daniel Ricciardo",
             "property": {},
-            "category": 0
+            "category": 0,
+            "x": -6.311484688491198,
+            "y": -2.3596979644766636
         },
         {
             "id": "12314",
             "name": "12314",
             "value": "Hungarian Grand Prix",
             "property": {},
-            "category": 1
+            "category": 1,
+            "x": 0.40064125690075,
+            "y": -2.35806484767311
         },
         {
             "id": "12316",
             "name": "12316",
             "value": "Red Bull",
             "property": {},
-            "category": 3
+            "category": 3,
+            "x": -1.521549332392187,
+            "y": 3.0210267304416587
         },
         {
             "id": "12313",
             "name": "12313",
             "value": "AlphaTauri",
             "property": {},
-            "category": 3
+            "category": 3,
+            "x": -11.95499141917441,
+            "y": -5.195149761908267
         }
     ],
     "edges": [
