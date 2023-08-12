@@ -108,7 +108,7 @@ if __name__ == '__main__':
     record_txt["nodes"] = nodes
     record_txt["edges"] = edges
     record_txt["categories"] = categories
-        # 添加节点
+    # 添加节点
     for i in record_txt["nodes"]:
         G.add_node(i["id"], name=i["name"], property=i["property"], value=i["value"], category=i["category"])
 
