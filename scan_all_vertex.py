@@ -45,8 +45,7 @@ if __name__ == '__main__':
     client = connection_pool.get_session(cf.usr, cf.pwd)
     assert client is not None
 
-    client.execute("USE %s"%(opt.spacename))
-    
+    respond = client.execute("USE %s"%(opt.spacename))
     result = client.execute(temp.all_entities_template%((page-1)*500,page*500))
     property_v = {}
     for id_v,tag_v,property_v in result:
