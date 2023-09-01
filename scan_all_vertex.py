@@ -4,7 +4,7 @@ from nebula3.Config import Config
 import config as cf
 import template as temp
 import json
-
+from operator import itemgetter
 record_txt = {}
 nodes,categories,edges = [],[],[]
 node_record,category_record= [],[]
@@ -56,6 +56,7 @@ if __name__ == '__main__':
             categories.append(category_insert(tag_v,property_v))
         if id_v not in node_record:
             nodes.append(nodes_insert(id_v,property_v,category_record.index(tag_v)))
+    nodes.sort(key=itemgetter("category"))
 
     record_txt["nodes"] = nodes
     record_txt["edges"] = edges

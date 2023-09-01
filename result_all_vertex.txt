@@ -15,6 +15,13 @@
             "category": 1
         },
         {
+            "id": "12324",
+            "name": "12324",
+            "value": "Australian",
+            "property": {},
+            "category": 1
+        },
+        {
             "id": "12311",
             "name": "12311",
             "value": "Daniel Ricciardo",
@@ -29,6 +36,13 @@
             "category": 2
         },
         {
+            "id": "12320",
+            "name": "12320",
+            "value": "Franz Tost",
+            "property": {},
+            "category": 2
+        },
+        {
             "id": "12315",
             "name": "12315",
             "value": "Silverstone",
@@ -36,16 +50,16 @@
             "category": 3
         },
         {
-            "id": "12324",
-            "name": "12324",
-            "value": "Australian",
-            "property": {},
-            "category": 1
-        },
-        {
             "id": "12322",
             "name": "12322",
             "value": "Monza",
+            "property": {},
+            "category": 3
+        },
+        {
+            "id": "12314",
+            "name": "12314",
+            "value": "Hungarian Grand Prix",
             "property": {},
             "category": 3
         },
@@ -69,20 +83,6 @@
             "value": "Williams",
             "property": {},
             "category": 4
-        },
-        {
-            "id": "12320",
-            "name": "12320",
-            "value": "Franz Tost",
-            "property": {},
-            "category": 2
-        },
-        {
-            "id": "12314",
-            "name": "12314",
-            "value": "Hungarian Grand Prix",
-            "property": {},
-            "category": 3
         }
     ],
     "edges": [],

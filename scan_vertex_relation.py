@@ -56,7 +56,7 @@ if __name__ == '__main__':
                         # Tuning
                         scalingRatio=2.0,
                         strongGravityMode=False,
-                        gravity=1.0,
+                        gravity=10.0,
 
                         # Log
                         verbose=True)
@@ -98,7 +98,7 @@ if __name__ == '__main__':
             nodes.append(nodes_insert(id_m,property_m,category_record.index(tag_m)))
         if id_n not in node_record:
             nodes.append(nodes_insert(id_n,property_n,category_record.index(tag_n)))
-        if id_n not in node_record:
+        if id_l not in node_record:
             nodes.append(nodes_insert(id_l,property_l,category_record.index(tag_l)))
         if str(src_a)+str(dst_a)+str(type_a) not in edge_record:
             edges.append(edge_insert(src_a,dst_a,type_a))
@@ -111,7 +111,7 @@ if __name__ == '__main__':
     # 添加节点
     for i in record_txt["nodes"]:
         G.add_node(i["id"], name=i["name"], property=i["property"], value=i["value"], category=i["category"])
-
+        print(i["id"])
     # 添加边
     for i in record_txt["edges"]:
         a = i["source"]
@@ -122,13 +122,14 @@ if __name__ == '__main__':
     for i in record_txt["nodes"]:
         i["x"] = positions[i["id"]][0]
         i["y"] = positions[i["id"]][1]
-    print(positions)
+    #print(positions)
 
-    print(record_txt)
+    #print(record_txt["nodes"])
     nx.draw_networkx_nodes(G, positions, node_size=20, node_color="blue", alpha=0.4)
     nx.draw_networkx_edges(G, positions, edge_color="green", alpha=0.05)
     plt.axis('off')
     plt.show()
     with open("result.txt","w",encoding="UTF-8") as f:
         json.dump(record_txt,f,ensure_ascii=False,indent=4)
+    client.release()
 
