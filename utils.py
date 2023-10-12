@@ -74,6 +74,7 @@ def gen_vertex_Batch(data):
     value = table[3][start:end]
     #print(value)
     value =value.replace('"',"\\\"")
+    value =value.replace("\n","")
     insert = temp.insert_Vertex_Template % (table[2],table[4],value)
     rollback = temp.rollback_Vertex_Template % (table[4])
     todo.append(insert)
@@ -122,9 +123,12 @@ def exeQueryWithRetries(query, session):
       i = i + 1
     else:
       break
-  if i == retryTimes:
-    logging.error("Error %s (%d), while executing query %s." % (result.error_msg(), result.error_code(), query))
-    return None
+  if i == retryTimes :
+    try:
+      logging.error("Error %s (%d), while executing query %s." % (result.error_msg(), result.error_code(), query))
+    finally:
+      print(query)
+      return None
   elif result.is_succeeded():
     return result
   else:

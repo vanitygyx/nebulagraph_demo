@@ -12,8 +12,8 @@ import config as cf
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='load.py')
     parser.add_argument('--file',default='db.sqlite3',help='load DB file')
-    parser.add_argument('--spacename',type=str,default="test",help='select nebula sapce')
-    parser.add_argument('--project_id',default=1,help='the id for create the project examples')
+    parser.add_argument('--spacename',type=str,default="f1_news",help='select nebula sapce')
+    parser.add_argument('--project_id',default=15,help='the id for create the project examples')
     opt = parser.parse_args()
     relation,span = get_tag_relation_data(opt.file,opt.project_id)
     spacename = opt.spacename
@@ -67,4 +67,4 @@ if __name__ == '__main__':
                     logging.info("Edge batch insert succeeded.")
         else:
             logging.error("Connection pool initialization failed.")
-        connection_pool.close()
+    connection_pool.close()
